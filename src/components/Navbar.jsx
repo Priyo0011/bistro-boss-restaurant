@@ -1,50 +1,85 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-    const navLinks = (
+  const { user, logOut } = useAuth();
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+  const navLinks = (
+    <>
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "font-semibold text-[#EEFF25] text-lg"
+              : "font-semibold text-white text-lg"
+          }
+        >
+          HOME
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/contact-us"
+          className={({ isActive }) =>
+            isActive
+              ? "font-semibold text-[#EEFF25] text-lg"
+              : "font-semibold text-white text-lg"
+          }
+        >
+          CONTACT US
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/menu"
+          className={({ isActive }) =>
+            isActive
+              ? "font-semibold text-[#EEFF25] text-lg"
+              : "font-semibold text-white text-lg"
+          }
+        >
+          OUR MENU
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/shop/category"
+          className={({ isActive }) =>
+            isActive
+              ? "font-semibold text-[#EEFF25] text-lg"
+              : "font-semibold text-white text-lg"
+          }
+        >
+          OUR SHOP
+        </NavLink>
+      </li>
+      {user ? (
+        <>
+          <button
+            onClick={handleLogOut}
+            className="ml-4 text-[#BB8506] border-4 border-[#BB8506] rounded-lg px-4 font-bold"
+          >
+            logout
+          </button>
+        </>
+      ) : (
         <>
           <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "font-semibold text-[#EEFF25] text-lg" : "font-semibold text-white text-lg"
-              }
-            >
-              HOME
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/contact-us"
-              className={({ isActive }) =>
-                isActive ? "font-semibold text-[#EEFF25] text-lg" : "font-semibold text-white text-lg"
-              }
-            >
-              CONTACT US
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/menu"
-              className={({ isActive }) =>
-                isActive ? "font-semibold text-[#EEFF25] text-lg" : "font-semibold text-white text-lg"
-              }
-            >
-              OUR MENU
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/shop"
-              className={({ isActive }) =>
-                isActive ? "font-semibold text-[#EEFF25] text-lg" : "font-semibold text-white text-lg"
-              }
-            >
-              OUR SHOP
-            </NavLink>
+            <Link to="/login">
+              <button className=" text-[#BB8506] border-4 border-[#BB8506] rounded-lg px-4 font-bold">
+                Login
+              </button>
+            </Link>
           </li>
         </>
-      );
+      )}
+    </>
+  );
   return (
     <div>
       <div className="navbar fixed z-10 bg-opacity-50 bg-black max-w-[1920px] px-8 py-4">
@@ -75,18 +110,19 @@ const Navbar = () => {
           </div>
           <div className="flex-1">
             <div className="flex gap-2 items-center">
-              
               <div className="text-white">
                 <h1 className="text-2xl font-bold">BISTRO BOSS</h1>
-                <h2 className="uppercase font-normal">R e s t a u r a n t . . .</h2>
+                <h2 className="uppercase font-normal">
+                  R e s t a u r a n t . . .
+                </h2>
               </div>
             </div>
           </div>
         </div>
         <div className="navbar-end">
-        <div className="navbar-center hidden lg:flex">
-          <ul className="flex gap-6 text-sm">{navLinks}</ul>
-        </div>
+          <div className="navbar-center hidden lg:flex">
+            <ul className="flex gap-6 text-sm">{navLinks}</ul>
+          </div>
         </div>
       </div>
     </div>

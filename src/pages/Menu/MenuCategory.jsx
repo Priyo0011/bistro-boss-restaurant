@@ -12,9 +12,9 @@ const MenuCategory = ({ items, title, img }) => {
             <MenuItem key={item._id} item={item}></MenuItem>
           ))}
         </div>
-        <Link to={`/shop`} className="">
+        <Link to={`/shop/${title}`}>
           <button className="btn btn-outline border-0 border-b-4 e text-xl font-medium hover:text-[#D99904] uppercase my-24">
-          ORDER YOUR FAVOURITE FOOD
+          ORDER YOUR FOOD
           </button>
         </Link>
       </div>
