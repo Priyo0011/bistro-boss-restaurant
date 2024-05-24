@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   loadCaptchaEnginge,
@@ -10,6 +9,9 @@ import Swal from "sweetalert2";
 
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../provider/AuthProvider";
+import SocialLogin from "../components/Social/SocialLogin";
+
+
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -18,7 +20,6 @@ const Login = () => {
   const location = useLocation();
 
   const from = location.state?.from?.pathname || "/";
-  console.log("state in the location login page", location.state);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -120,11 +121,7 @@ const Login = () => {
             </p>
             <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
           </div>
-          <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
-            <FcGoogle size={32} />
-
-            <p>Continue with Google</p>
-          </div>
+          <SocialLogin></SocialLogin>
           <p className="px-6 text-sm text-center text-gray-400">
             Don&apos;t have an account yet?
             <Link

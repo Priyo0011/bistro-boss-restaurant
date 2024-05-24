@@ -1,8 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import shop from '../assets/icon/15596567 (1).jpg'
+import useCart from "../hooks/useCart";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
+
 
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut } = useContext(AuthContext);
+  const [cart] =useCart();
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -35,6 +40,18 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
+      <NavLink
+          to="dashboard"
+          className={({ isActive }) =>
+            isActive
+              ? "font-semibold text-[#EEFF25] text-lg"
+              : "font-semibold text-white text-lg"
+          }
+        >
+          DASHBOARD
+        </NavLink>
+      </li>
+      <li>
         <NavLink
           to="/menu"
           className={({ isActive }) =>
@@ -58,11 +75,20 @@ const Navbar = () => {
           OUR SHOP
         </NavLink>
       </li>
+      <li>
+        <NavLink to='/dashboard/cart'>
+          <button>
+            <img className="w-8 rounded-full relative" src={shop} alt="" />
+            <div className="badge bg-red-600 border-none text-white absolute z-10 -mt-3">{cart.length}</div>
+          </button>
+        </NavLink>
+      </li>
+      <li>
       {user ? (
         <>
           <button
             onClick={handleLogOut}
-            className="ml-4 text-[#BB8506] border-4 border-[#BB8506] rounded-lg px-4 font-bold"
+            className=" text-[#BB8506] border-4 border-[#BB8506] rounded-lg px-4 font-bold"
           >
             logout
           </button>
@@ -78,6 +104,7 @@ const Navbar = () => {
           </li>
         </>
       )}
+      </li>
     </>
   );
   return (
