@@ -30,7 +30,7 @@ const MenuSixData = () => {
         subHeading={"Check it out"}
         heading={"OUR MENU"}
       ></SectionTitle>
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid md:grid-cols-2 gap-16">
         {sixData.map((item) => (
           <MenuItem key={item._id} item={item}></MenuItem>
         ))}

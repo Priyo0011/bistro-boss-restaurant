@@ -1,15 +1,15 @@
-import { FaTrashAlt } from "react-icons/fa";
-import Swal from "sweetalert2";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useCart from "../../hooks/useCart";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import SectionTitl2 from "../../components/SectionTitl2";
+import Swal from "sweetalert2";
+import useMenu from "../../hooks/useMenu";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
-const Cart = () => {
-  const [cart, refetch] = useCart();
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+const ManageItems = () => {
+  const [menu, , refetch] = useMenu();
   const axiosSecure = useAxiosSecure();
 
-  const handleDelete = (id) => {
+  const handleDeleteItem = (item) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -18,38 +18,34 @@ const Cart = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/carts/${id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          }
-        });
+        const res = await axiosSecure.delete(`/menu/${item._id}`);
+        if (res.data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${item.name} has been deleted`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       }
     });
   };
-
   return (
     <div>
       <SectionTitl2
-        subHeading="My Cart"
-        heading={"WANNA ADD MORE?"}
+        subHeading="Hurry Up!"
+        heading="MANAGE ALL ITEMS"
       ></SectionTitl2>
       <div className="w-[1320px] mx-auto px-32 py-10">
         <div className="bg-white p-8">
           <div className="flex justify-between ml-4 mb-8 items-center">
             <h2 className="text-xl font-bold uppercase">
-              Items: {cart.length}
+              Total items: {menu.length}
             </h2>
-            <h2 className="text-xl font-bold uppercase">
-              Total Price: {totalPrice}
-            </h2>
-            <button className="btn bg-[#D1A054] text-white">Pay</button>
           </div>
           <div>
             <table className="table ">
@@ -57,14 +53,15 @@ const Cart = () => {
               <thead className="bg-[#D1A054] text-white">
                 <tr className="uppercase">
                   <th></th>
-                  <th>Image</th>
-                  <th>Name</th>
+                  <th>ITEM IMAGE</th>
+                  <th>ITEM NAME</th>
                   <th>Price</th>
+                  <th>Action</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {cart.map((item, index) => (
+                {menu.map((item, index) => (
                   <tr key={item._id}>
                     <th>{index + 1}</th>
                     <td>
@@ -81,14 +78,21 @@ const Cart = () => {
                     </td>
                     <td>{item.name}</td>
                     <td>${item.price}</td>
-                    <th>
+                    <td>
+                      <Link to={`/dashboard/updateItem/${item._id}`}>
+                        <button className="bg-[#D1A054] p-4 rounded-lg">
+                          <FaEdit className="text-white text-lg"></FaEdit>
+                        </button>
+                      </Link>
+                    </td>
+                    <td>
                       <button
-                        onClick={() => handleDelete(item._id)}
+                        onClick={() => handleDeleteItem(item)}
                         className="bg-[#B91C1C] p-4 rounded-lg"
                       >
                         <FaTrashAlt className="text-white"></FaTrashAlt>
                       </button>
-                    </th>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -100,4 +104,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default ManageItems;
