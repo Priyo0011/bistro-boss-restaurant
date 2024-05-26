@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCart from "../../hooks/useCart";
 import SectionTitl2 from "../../components/SectionTitl2";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -49,7 +50,11 @@ const Cart = () => {
             <h2 className="text-xl font-bold uppercase">
               Total Price: {totalPrice}
             </h2>
-            <button className="btn bg-[#D1A054] text-white">Pay</button>
+            {cart.length>0 ? <Link to="/dashboard/payment">
+              <button className="bg-[#D1A054] text-white px-6 py-1 rounded-lg">Pay</button>
+            </Link>:
+              <button disabled className=" bg-[#D1A054] text-white px-6 py-1 rounded-lg">Pay</button>
+            }
           </div>
           <div>
             <table className="table ">

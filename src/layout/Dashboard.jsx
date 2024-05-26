@@ -84,7 +84,7 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard"
                     className={({ isActive }) =>
-                      isActive ? "text-sm" : "text-sm text-white"
+                      isActive ? "text-sm" : "text-sm "
                     }
                   >
                     <IoHomeSharp />
@@ -93,9 +93,9 @@ const Dashboard = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/dashboard"
+                    to="/dashboard/payment"
                     className={({ isActive }) =>
-                      isActive ? "text-sm" : "text-sm text-white"
+                      isActive ? "text-sm" : "text-sm"
                     }
                   >
                     <FaCalendarAlt />
@@ -104,9 +104,9 @@ const Dashboard = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/dashboard"
+                    to="/dashboard/paymentHistory"
                     className={({ isActive }) =>
-                      isActive ? "text-sm" : "text-sm text-white"
+                      isActive ? "text-sm" : "text-sm "
                     }
                   >
                     <IoWallet />
@@ -117,7 +117,7 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard/cart"
                     className={({ isActive }) =>
-                      isActive ? "text-sm text-white" : "text-sm"
+                      isActive ? "text-sm " : "text-sm"
                     }
                   >
                     <FaCartShopping />
@@ -128,7 +128,7 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard"
                     className={({ isActive }) =>
-                      isActive ? "text-sm" : "text-sm text-white"
+                      isActive ? "text-sm" : "text-sm"
                     }
                   >
                     <FaStar />
@@ -139,7 +139,7 @@ const Dashboard = () => {
                   <NavLink
                     to="/dashboard"
                     className={({ isActive }) =>
-                      isActive ? "text-sm" : "text-sm text-white"
+                      isActive ? "text-sm" : "text-sm "
                     }
                   >
                     <TbCalendarCheck />
