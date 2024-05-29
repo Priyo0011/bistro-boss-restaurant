@@ -82,7 +82,7 @@ const Dashboard = () => {
               <>
                 <li>
                   <NavLink
-                    to="/dashboard"
+                    to="/dashboard/userHome"
                     className={({ isActive }) =>
                       isActive ? "text-sm" : "text-sm "
                     }
